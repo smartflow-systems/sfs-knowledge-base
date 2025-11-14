@@ -1,0 +1,127 @@
+---
+title: Examples
+description: Real-world examples and code snippets
+order: 4
+category: Guides
+---
+
+# Examples
+
+Learn by example with these practical code snippets and use cases.
+
+## Basic Example
+
+Here's a simple example to get you started:
+
+```javascript
+import { Client } from 'our-platform'
+
+const client = new Client({
+  apiKey: process.env.API_KEY
+})
+
+async function main() {
+  const users = await client.users.list()
+  console.log(users)
+}
+
+main()
+```
+
+## Creating a User
+
+```javascript
+const newUser = await client.users.create({
+  name: 'Alice Smith',
+  email: 'alice@example.com',
+  role: 'admin'
+})
+
+console.log('Created user:', newUser.id)
+```
+
+## Handling Errors
+
+```javascript
+try {
+  const user = await client.users.get('invalid-id')
+} catch (error) {
+  if (error.code === 'not_found') {
+    console.error('User not found')
+  } else {
+    console.error('An error occurred:', error.message)
+  }
+}
+```
+
+## Pagination
+
+```javascript
+let page = 1
+let allUsers = []
+
+while (true) {
+  const response = await client.users.list({
+    page,
+    limit: 50
+  })
+  
+  allUsers = allUsers.concat(response.data)
+  
+  if (page >= response.pagination.totalPages) {
+    break
+  }
+  
+  page++
+}
+
+console.log(`Retrieved ${allUsers.length} users`)
+```
+
+## Webhooks
+
+Set up a webhook to receive real-time updates:
+
+```javascript
+import express from 'express'
+
+const app = express()
+app.use(express.json())
+
+app.post('/webhook', (req, res) => {
+  const event = req.body
+  
+  switch (event.type) {
+    case 'user.created':
+      console.log('New user:', event.data)
+      break
+    case 'user.updated':
+      console.log('User updated:', event.data)
+      break
+    default:
+      console.log('Unknown event type:', event.type)
+  }
+  
+  res.sendStatus(200)
+})
+
+app.listen(3000)
+```
+
+## Advanced: Bulk Operations
+
+```javascript
+const userIds = ['id1', 'id2', 'id3']
+
+const results = await Promise.allSettled(
+  userIds.map(id => client.users.delete(id))
+)
+
+results.forEach((result, index) => {
+  if (result.status === 'fulfilled') {
+    console.log(`Deleted user ${userIds[index]}`)
+  } else {
+    console.error(`Failed to delete ${userIds[index]}:`, result.reason)
+  }
+})
+```

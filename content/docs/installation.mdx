@@ -1,0 +1,87 @@
+---
+title: Installation
+description: Detailed installation instructions for all platforms
+order: 2
+category: Getting Started
+---
+
+# Installation
+
+This guide covers installation for all supported platforms.
+
+## Prerequisites
+
+Before installing, make sure you have:
+
+- Node.js 18.0 or higher
+- npm or yarn package manager
+- Git
+
+## Installation Methods
+
+### Using npm
+
+The easiest way to install is using npm:
+
+```bash
+npm install -g our-platform-cli
+```
+
+### Using yarn
+
+Alternatively, you can use yarn:
+
+```bash
+yarn global add our-platform-cli
+```
+
+### From Source
+
+For development purposes, you can install from source:
+
+```bash
+git clone https://github.com/our-org/platform.git
+cd platform
+npm install
+npm link
+```
+
+## Verify Installation
+
+After installation, verify everything is working:
+
+```bash
+our-platform --version
+```
+
+You should see the version number printed to the console.
+
+## Configuration
+
+Create a configuration file in your home directory:
+
+```bash
+our-platform config init
+```
+
+This will create a `.platformrc` file with default settings.
+
+## Troubleshooting
+
+### Command not found
+
+If you get a "command not found" error:
+
+1. Make sure the installation completed successfully
+2. Check that your PATH includes the npm global bin directory
+3. Try restarting your terminal
+
+### Permission errors
+
+On macOS/Linux, you may need to use `sudo`:
+
+```bash
+sudo npm install -g our-platform-cli
+```
+
+Or configure npm to install packages globally without sudo.
