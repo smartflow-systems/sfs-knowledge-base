@@ -24,8 +24,7 @@ function Hit({ hit }: { hit: any }) {
 }
 
 export default function SearchBox({ onClose }: SearchBoxProps) {
-  const isConfigured = process.env.NEXT_PUBLIC_ALGOLIA_APP_ID && 
-                       process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_API_KEY
+  const isConfigured = searchClient !== null
 
   if (!isConfigured) {
     return (

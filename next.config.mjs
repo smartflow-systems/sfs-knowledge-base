@@ -1,23 +1,18 @@
 import createMDX from '@next/mdx'
-import rehypeHighlight from 'rehype-highlight'
-import rehypeSlug from 'rehype-slug'
-import rehypeAutolinkHeadings from 'rehype-autolink-headings'
-import remarkGfm from 'remark-gfm'
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
   reactStrictMode: true,
+  experimental: {
+    mdxRs: false,
+  },
 }
 
 const withMDX = createMDX({
   options: {
-    remarkPlugins: [remarkGfm],
-    rehypePlugins: [
-      rehypeSlug,
-      rehypeHighlight,
-      [rehypeAutolinkHeadings, { behavior: 'wrap' }],
-    ],
+    remarkPlugins: ['remark-gfm'],
+    rehypePlugins: ['rehype-slug', 'rehype-highlight'],
   },
 })
 
